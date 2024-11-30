@@ -1,0 +1,65 @@
+logging:
+  level:
+    ROOT: INFO
+    org.hibernate.SQL: INFO
+    com.example.quick_chat_back: INFO
+
+spring:
+  application:
+    name: quick-chat-backend
+  threads:
+    virtual:
+      enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  sql:
+    init:
+      mode: always
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          batch_size: 25
+        query:
+          fail_on_pagination_over_collection_fetch: true
+          in_clause_parameter_padding: true
+        generate_statistics: false
+        order_updates: true
+        connection:
+          provider_disables_autocommit: true
+        order_inserts: true
+    open-in-view: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}
+
+  docker:
+    compose:
+      enabled: false
+
+server:
+  port: 8080

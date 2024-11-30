@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=quick-chat-db'
+      - 'POSTGRES_PASSWORD=quick-chat'
+      - 'POSTGRES_USER=quick-chat'
+    ports:
+      - "5432:5432"
